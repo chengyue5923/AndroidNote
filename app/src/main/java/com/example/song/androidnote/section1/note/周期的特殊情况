@@ -1,0 +1,26 @@
+
+1.特殊的周期
+(1)  针对于一个特定的Activity 第一次启动，毁掉如下 ：OnCreate  OnStart  OnResume
+
+(2)  当前用户打开新的Activity 或者切换到桌面的时候，回调如下：OnPause  OnStop
+     这里有个特殊的情况，如果新的Activity 采用了透明的主题，那莫当前的Activity 不会回调OnStop
+
+(3)  当前用户再次回到Activity 时候，回调如下：OnRestart  OnStart OnResume
+
+(4)  当前用户按back 键回退时候，回调如下 OnPause OnStop  OnDestroy
+
+(5) 从整个生命周期来说，OnCreate 和 OnDestroy 是配对的，分别是标识着Activity 的创建和销毁
+并且只可能又一次调用，从Activity 是否可见来说OnStart 和 OnStop是配对的，随着用户操作作者是设备的
+点亮和熄灭是配对的，这两个方法会被调用多次，从Activity是否在前台来说，OnResume和OnPause是
+配对的，随着用户操作设备屏幕的点亮和熄灭，这两个方法会被调用多次。
+
+2.Activity 优先级
+
+前台Activity  正在和用户交互的Activity 优先级最高
+
+可见但是并非在前台展示的Activity 比如Activity 中弹出了一个对话框，导致Activity可见 但是位于后台无法和用户交互
+
+后台的Activity  已经被停止的Activity ，比如执行了OnStop 优先级最低
+
+
+

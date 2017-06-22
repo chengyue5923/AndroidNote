@@ -1,0 +1,21 @@
+1 Standard ：标准模式 每次启动都会创建一个新的实例。不管这个实例是否存在。被创建的实例的生命周期符合典型的情况
+下的Activity的生命周期 如上所述 OnCreate OnSartorial OnResume 都会被调用的这是一种典型的多实例实现，一个任务栈中
+可以有多个实例，每个实例也可以属于不同的任务栈，在这个模型下，谁启动了这个Activity 这个Activity 就会运行在启动他的
+内个Activity栈中。
+
+2.singleTop : 栈顶复用模型 ，在这种模式下，如果新的Activity 已经位于任务栈的栈顶，那莫此Activity 不会被重新创建
+，同时他的OnNewIntent 方法会被回调，通过此方法的参数我么可以取出当前请求的信息，需要注意的是这个Activity的OnCreate
+OnStart不会被系统调用，因为他并没有发生变化，如果新的Activity的实例已存在但是没有位于栈顶，则依然会重新创建，
+
+3.singleTask ：站内复用模式。 这是一种单实例模式。在这种情况下。只要Activity在同一个栈中，那莫多次启动此Activity都不会
+重新创建实例，和singleTop一样，系统也会回调起OnNewIntent 具体一点，当有一个具体的singleTask模式的Activity
+请求启动后，比如Activity A ,系统就会首先寻找A想要的任务栈，如果不存在，就会重新创建一个任务栈，然后把新建的A放到A的
+任务栈中。如果存在A需要的任务栈，这时就要看A是否存在栈中有实例的存在，如果有实例的存在，那莫就会把A调到栈顶并且调用他的
+OnNewIntent方法，如果实例不存在，就会创建A的实例，并把它A压如栈中。
+
+
+4.singleInstance 单实例模型。 这是一种加强的singleTask模式，他除了具有singleTask模式所有的特性之外，还加强了一点
+就是具有这种模式的Activity只能单独的位于一个任务栈中，换句话说，比如Activity A是singleInstance 模式，当A启动后
+系统会为他创建一个新的任务栈，然后A独自在这个新的任务栈中，由于站内复用的特性，后续的请求均不会创建新的Activity
+除非这个单独的染污站会被系统销毁掉
+
